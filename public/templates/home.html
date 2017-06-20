@@ -12,14 +12,17 @@
         <uib-accordion close-others="false" ng-hide="showLoader">
             <div uib-accordion-group class="panel-default" ng-repeat="match in matches" is-open="true">
                 <uib-accordion-heading>
-                       <div class="col-xs-12 col-sm-6"><img ng-if="match.battingTeam" class="logo img-repsonsive"
-                             ng-src="{{buildImageUrl(match.battingTeam)}}">
-                           {{match.battingTeam}} <span class="score">{{match.team1Score}}/{{match.team1Wickets}}</span></div>
-                        <img ng-if="match.battingTeam" class="logo img-repsonsive" style="margin-left:10px;"
-                             ng-src="{{buildImageUrl(match.bowlingTeam)}}">
-                        {{match.bowlingTeam}} <span class="score">{{match.team2Score}}/{{match.team2Wickets}}</span>
+                    <div class="col-xs-12 col-md-6 first-team"><img ng-if="match.battingTeam" class="logo"
+                                                         ng-src="{{buildImageUrl(match.battingTeam)}}">
+                        {{match.battingTeam}} <span class="score">{{match.team1Score}}/{{match.team1Wickets}} </span>
+                        <span class="overs"> Over(s): <strong>{{floor(match.team1NumBalls/6) + '.' + match.team1NumBalls%6}}</strong></span>
+                    </div>
+                    <div class="second-team"><img ng-if="match.battingTeam" class="logo" style="margin-left:10px;"
+                         ng-src="{{buildImageUrl(match.bowlingTeam)}}">
+                    {{match.bowlingTeam}} <span class="score">{{match.team2Score}}/{{match.team2Wickets}}</span>
+                        <span class="overs"> Over(s): <strong>{{floor(match.team2NumBalls/6) + '.' + match.team2NumBalls%6}}</strong></span>
                     <i class="pull-right glyphicon"
-                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></div>
                 </uib-accordion-heading>
                 <div class='first col-xs-12' ng-hide="match.won"><p>{{match.liveMessages[0]}}</p></div>
                 <div class='second col-xs-12' ng-hide="match.won"><p>{{match.liveMessages[1]}}</p></div>
@@ -32,7 +35,6 @@
                 <div class='fifth col-xs-12' ng-hide="match.won"><p>{{match.liveMessages[4]}}</p></div>
             </div>
         </uib-accordion>
-
 
     </div>
 </section>

@@ -116,9 +116,80 @@ angular.module('premierLeague')
             return $resource(baseURL + 'deliveries/live');
         }
 
+        function buildLiveMatch(match) {
+
+            if (match.startPos < match.numRows) {
+                if (match.liveMessages.length >= 5) {
+                    match.liveMessages.pop();
+                }
+                match.liveMessages.unshift(constructMessage(match, match.startPos));
+                match.battingTeam = match.data[match.startPos].batting_team;
+                match.bowlingTeam = match.data[match.startPos].bowling_team;
+                match.startPos++;
+                match.lmindex++;
+            }
+            else {
+                if (match.team1Score > match.team2Score) {
+                    match.winner = match.battingTeam;
+                }
+                else {
+                    match.winner = match.bowlingTeam;
+                }
+                match.won = true;
+            }
+
+        }
+
+        function isValidBall(data) {
+            return parseInt(data.wide_runs) === 0 && parseInt(data.noball_runs) === 0 ;
+        }
+
+        function floor(value) {
+            return Math.floor(value);
+        }
+
+        function constructMessage(match, pos) {
+
+            var msg = match.data[pos].bowler + ' is bowling. ' + match.data[pos].batsman + " on strike. ";
+
+            if (parseInt(match.data[pos].inning) === 1) {
+
+                if (match.data[pos].player_dismissed !== "") {
+                    match.team1Wickets++;
+                    msg += match.data[pos].batsman + ' is out! ';
+                }
+
+                if(isValidBall(match.data[pos])) {
+                    match.team1NumBalls++;
+                }
+
+                match.team1Score += match.data[pos].total_runs;
+            }
+            else {
+                if (match.data[pos].player_dismissed !== "") {
+                    match.team2Wickets++;
+                    msg += match.data[pos].batsman + ' is out! ';
+                }
+
+                if(isValidBall(match.data[pos])) {
+                    match.team2NumBalls++;
+                }
+
+                match.team2Score += match.data[pos].total_runs;
+            }
+
+            msg += match.data[pos].total_runs + ' run(s)! ';
+
+
+            return msg;
+        }
+
         return {
             getDeliveries: getDeliveries,
-            getIndexPos: getIndexPos
+            getIndexPos: getIndexPos,
+            buildLiveMatch: buildLiveMatch,
+            isValidBall: isValidBall,
+            floor: floor
         };
 
 

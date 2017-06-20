@@ -76,6 +76,7 @@ a {
 
 .panel-default .score {
     color: green;
+    font-weight: bold;
 }
 
 
@@ -86,11 +87,20 @@ a {
     font-weight: bold;
 }
 
-.logo.img-repsonsive {
-    width: 50px;
-    height: 50px;
+ .panel-default .logo{
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
+     border: 2px solid #cfaf00;
 }
+
+ .first-team{
+     padding-bottom: 3px;
+ }
+
+ .second-team{
+     margin-left: 5px;
+ }
 
 .panel-title {
     font-size: 18px;
@@ -106,12 +116,21 @@ a {
     outline-style: none;
 }
 
+.overs {
+    color: #6e6e6e;
+   /* text-shadow: 1px 4px 6px #F5F5F5, 0 0 0 #000; */
+    font-size: 13px;
+}
+
 
 
 @media only screen and (max-width: 768px) {
 
     .panel-title {
         font-size: 12px;
+    }
+    .overs {
+        font-size: 10px;
     }
 
 }
@@ -127,6 +146,9 @@ a {
     margin-top: 4px;
     background: #f6f8f8;
     padding-top: 40px;
+    -webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    -o-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -181,11 +203,15 @@ a {
     border: none;
     caret-color: white;
     color: #c9c9c9;
+    -webkit-box-shadow: inset 0 0 7px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 0 7px 2px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 0 7px 2px rgba(0, 0, 0, 0.2);
 }
 
 .input-group .btn {
     background: linear-gradient(#476fcf, #3b5dad, #36559e);
+    -webkit-box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
     border: none;
 }
@@ -212,9 +238,11 @@ a {
 
 .media {
     color: #476fcf;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
     border-radius: 5px 5px 5px 5px;
     background-color: #ffffff;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
 
 .wrapper-list-home {
@@ -255,8 +283,9 @@ a {
     height: 90px;
     width: 90px;
     border-radius: 50%;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-    background-color: #59687a;
 }
 
 .name1 > h4 {

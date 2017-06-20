@@ -31,6 +31,10 @@ angular.module('premierLeague')
             return '/images/'+String(name).replace(/\s+/g, '-') + '.png';
         };
 
+        $scope.floor = function(value) {
+            return simulationFactory.floor(value);
+        };
+
 
         setupMatches($scope.matches[0], 2000, 0);
         setupMatches($scope.matches[1], 5000, 1);
@@ -52,6 +56,8 @@ angular.module('premierLeague')
             match.won = false;
             match.winner = '';
             match.timer = timer;
+            match.team1Overs = 0;
+            match.team2Overs = 0;
 
         }
 
@@ -107,10 +113,12 @@ angular.module('premierLeague')
             match.team2Score = getCurrentScore(match.data, 2, sPos);
             match.team1Wickets = getCurrentWickets(match.data, 1, sPos);
             match.team2Wickets = getCurrentWickets(match.data, 2, sPos);
+            match.team1NumBalls = getOvers(match.data, 1, sPos);
+            match.team2NumBalls = getOvers(match.data, 2, sPos);
             match.battingTeam = match.data[sPos].batting_team;
             match.bowlingTeam = match.data[sPos].bowling_team;
             for(var l = 0; l<5; l++) {
-                buildLiveMatch(match);
+                simulationFactory.buildLiveMatch(match);
             }
 
         }
@@ -138,61 +146,23 @@ angular.module('premierLeague')
             return wickets;
         }
 
+        function getOvers(data, inning, pos) {
+            var balls = 0;
+            for(var i=0; i<pos; i++) {
+                if(parseInt(data[i].inning) === inning) {
+                    if(simulationFactory.isValidBall(data[i])) {
+                        balls+=1;
+                    }
+                }
+            }
+            return balls;
+        }
+
+
         function startSimulation(timer, match) {
             $interval(function () {
-                buildLiveMatch(match);
+                simulationFactory.buildLiveMatch(match);
             }, timer);
-        }
-
-        function buildLiveMatch(match) {
-
-            if (match.startPos < match.numRows) {
-                if (match.liveMessages.length >= 5) {
-                    match.liveMessages.pop();
-                }
-                match.liveMessages.unshift(constructMessage(match, match.startPos));
-                match.battingTeam = match.data[match.startPos].batting_team;
-                match.bowlingTeam = match.data[match.startPos].bowling_team;
-                match.startPos++;
-                match.lmindex++;
-            }
-            else {
-                if (match.team1Score > match.team2Score) {
-                    match.winner = match.battingTeam;
-                }
-                else {
-                    match.winner = match.bowlingTeam;
-                }
-                match.won = true;
-            }
-
-        }
-
-        function constructMessage(match, pos) {
-
-            var msg = match.data[pos].bowler + ' is bowling. ' + match.data[pos].batsman + " on strike. ";
-
-            if (parseInt(match.data[pos].inning) === 1) {
-
-                if (match.data[pos].player_dismissed !== "") {
-                    match.team1Wickets++;
-                    msg += match.data[pos].batsman + ' is out! ';
-                }
-
-                match.team1Score += match.data[pos].total_runs;
-            }
-            else {
-                if (match.data[pos].player_dismissed !== "") {
-                    match.team2Wickets++;
-                    msg += match.data[pos].batsman + ' is out! ';
-                }
-                match.team2Score += match.data[pos].total_runs;
-            }
-
-            msg += match.data[pos].total_runs + ' run(s)! ';
-
-
-            return msg;
         }
 
 
