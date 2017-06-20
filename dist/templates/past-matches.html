@@ -1,0 +1,90 @@
+<div class="match-list-wrapper">
+    <div class="container">
+
+        <div ng-if="hasAlert" class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+             &nbsp; {{alertMessage}}
+        </div>
+
+
+        <nav class="navbar navbar-inverse filter-navbar">
+            <div class="container-fluid">
+
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <label for="season">Season</label>
+                            <select ng-model="seasonSelected" id="season" name="season"
+                                    ng-options="season for season in seasons"
+                                    class="form-control"
+                                    ng-change="changeFunc()">
+                                <option value="" selected>none</option>
+                            </select>
+                        </li>
+                        <li>
+                            <label for="team1">Team1</label>
+                            <select ng-model="team1Selected" id="team1" name="team1"
+                                    ng-options="team for team in teams | orderBy: team"
+                                    class="form-control"
+                                    ng-change="changeFunc()">
+                                <option value="" selected>none</option>
+                            </select>
+                        </li>
+                        <li><h4 class="h4-vs">vs</h4></li>
+                        <li>
+                            <label for="team2">Team2</label>
+                            <select ng-model="team2Selected" id="team2" name="team2" placeholder="(optional)"
+                                    ng-options="team for team in teams | orderBy: team"
+                                    class="form-control"
+                                    ng-change="changeFunc()">
+                                <option value="" selected>none</option>
+                            </select>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="filter-btn-li">
+                            <button class="btn btn-lg btn-default filter-button" ng-click="submitSelected()">
+                                submit
+                            </button>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div><!--/.container-fluid -->
+        </nav>
+
+    </div> <!-- /container -->
+
+
+    <div class="container" ng-if="showLoader">
+        <div class="row" id="loader-wrapper">
+            <div class="col-xs-12" id="loader"></div>
+        </div>
+    </div>
+
+    <ng-include src="'templates/match-card.html'"></ng-include>
+
+    <div class="container">
+        <nav aria-label="...">
+            <!-- pager -->
+            <ul ng-if="matchesList.length" class="pagination" ng-show="showPagination">
+                <li ng-class="{disabled:pager.currentPage === 1}">
+                    <a ng-click="setPage(1)" href="">First</a>
+                </li>
+                <li ng-class="{disabled:pager.currentPage === 1}">
+                    <a ng-click="setPage(pager.currentPage - 1)" href=""><i class="fa fa-angle-double-left"
+                                                                            aria-hidden="true"></i></a>
+                </li>
+                <li ng-repeat="page in pager.pages" ng-class="{active:pager.currentPage === page}">
+                    <a ng-click="setPage(page)" href="">{{page}}</a>
+                </li>
+                <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+                    <a ng-click="setPage(pager.currentPage + 1)" href=""><i class="fa fa-angle-double-right"
+                                                                            aria-hidden="true"></i></a>
+                </li>
+                <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+                    <a ng-click="setPage(pager.totalPages)" href="">Last</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

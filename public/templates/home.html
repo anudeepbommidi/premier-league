@@ -1,0 +1,39 @@
+<div class="contailer-fluid alert alert-warning home-title" role="alert">Live cricket scores simulation ...</div>
+<section class='container'>
+
+    <div class='row'>
+
+        <div class="container" ng-show="showLoader">
+            <div class="row" id="loader-wrapper">
+                <div class="col-xs-12" id="loader"></div>
+            </div>
+        </div>
+
+        <uib-accordion close-others="false" ng-hide="showLoader">
+            <div uib-accordion-group class="panel-default" ng-repeat="match in matches" is-open="true">
+                <uib-accordion-heading>
+                       <div class="col-xs-12 col-sm-6"><img ng-if="match.battingTeam" class="logo img-repsonsive"
+                             ng-src="{{buildImageUrl(match.battingTeam)}}">
+                           {{match.battingTeam}} <span class="score">{{match.team1Score}}/{{match.team1Wickets}}</span></div>
+                        <img ng-if="match.battingTeam" class="logo img-repsonsive" style="margin-left:10px;"
+                             ng-src="{{buildImageUrl(match.bowlingTeam)}}">
+                        {{match.bowlingTeam}} <span class="score">{{match.team2Score}}/{{match.team2Wickets}}</span>
+                    <i class="pull-right glyphicon"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </uib-accordion-heading>
+                <div class='first col-xs-12' ng-hide="match.won"><p>{{match.liveMessages[0]}}</p></div>
+                <div class='second col-xs-12' ng-hide="match.won"><p>{{match.liveMessages[1]}}</p></div>
+                <div class="won col-xs-12" ng-show="match.won">
+                    <h4>Match Ended!</h4>
+                    <h4>{{match.winner}} won!</h4>
+                </div>
+                <div class='third col-xs-12' ng-hide="match.won"><p>{{match.liveMessages[2]}}</p></div>
+                <div class='fourth col-xs-12' ng-hide="match.won"><p>{{match.liveMessages[3]}}</p></div>
+                <div class='fifth col-xs-12' ng-hide="match.won"><p>{{match.liveMessages[4]}}</p></div>
+            </div>
+        </uib-accordion>
+
+
+    </div>
+</section>
+

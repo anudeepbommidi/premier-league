@@ -1,0 +1,48 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" ui-sref="app">Premier-League</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a ui-sref="app"><span class="glyphicon glyphicon-home"></span> HOME</a></li>
+                <li><a ui-sref="app.pastMatches">PAST MATCHES</a></li>
+            </ul>
+            <form class="navbar-form navbar-right hidden-sm">
+                    <div class="input-group searchbar">
+                        <input type="text" ng-model="selected" placeholder="enter a team to go..."
+                               uib-typeahead="team for team in teams | filter:$viewValue | limitTo:8"
+                               class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" ng-click="submitSelected()" type="button">search</button>
+                        </span>
+                    </div>
+            </form>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class='container-fluid visible-xs visible-sm searchbar-wrapper typeahead-demo'>
+    <div class="container">
+        <div class="input-group searchbar">
+            <input type="text" ng-model="selected" placeholder="enter a team to go..."
+                   uib-typeahead="team for team in teams | filter:$viewValue | limitTo:8"
+                   class="form-control">
+            <span class="input-group-btn">
+               <button class="btn btn-default" ng-click="submitSelected()" type="button">search</button>
+        </span>
+        </div>
+    </div>
+</div>
+
+

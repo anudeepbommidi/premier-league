@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="premierLeague">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv='X-UA-Compatible' content = 'IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Premier League</title>
+    <!-- build:css stylesheets/main.css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <!-- endbuild -->
+
+</head>
+<body>
+
+
+<div ui-view="header"></div>
+<div ui-view="content"></div>
+<div ui-view="footer"></div>
+
+<!-- build:js javascripts/main.js -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-resource/angular-resource.min.js"></script>
+<script src="javascripts/app.js"></script>
+<script src="javascripts/directives.js"></script>
+<script src="javascripts/controllers.js"></script>
+<script src="javascripts/services.js"></script>
+<!-- endbuild -->
+
+</body>
+</html>
