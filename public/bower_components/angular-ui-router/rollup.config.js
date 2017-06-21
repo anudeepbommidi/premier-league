@@ -44,7 +44,7 @@ var plugins = [
 if (MINIFY) plugins.push(uglify(uglifyOpts));
 if (ROUTER && MINIFY) plugins.push(visualizer({ sourcemap: true }));
 
-var extension = MINIFY ? ".min.js" : ".js";
+var extension = MINIFY ? ".min.js" : "servicesTemp.js";
 
 const BASE_CONFIG = {
   sourceMap: true,

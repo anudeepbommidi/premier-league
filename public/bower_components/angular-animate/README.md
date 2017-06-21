@@ -1,7 +1,7 @@
 # packaged angular-animate
 
 This repo is for distribution on `npm` and `bower`. The source for this module is in the
-[main AngularJS repo](https://github.com/angular/angular.js/tree/master/src/ngAnimate).
+[main AngularJS repo](https://github.com/angular/angularservicesTemp.js/tree/master/src/ngAnimate).
 Please file issues and pull requests against that repo.
 
 ## Install
@@ -29,7 +29,7 @@ bower install angular-animate
 Then add a `<script>` to your `index.html`:
 
 ```html
-<script src="/bower_components/angular-animate/angular-animate.js"></script>
+<script src="/bower_components/angular-animate/angular-animateservicesTemp.js"></script>
 ```
 
 Then add `ngAnimate` as a dependency for your app:

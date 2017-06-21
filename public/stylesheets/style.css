@@ -123,6 +123,10 @@ a {
 }
 
 
+.glyphicon-asterisk {
+    font-size: 12px;
+}
+
 
 @media only screen and (max-width: 768px) {
 
@@ -343,11 +347,11 @@ a {
 /*-------------------- Loader --------------------------*/
 
 #loader-wrapper {
-    position: relative;
     margin-top: 50px;
-    top: 50%;
-    left: 50%;
     margin-bottom: 350px;
+    position: relative;
+    left: 48%;
+    top: 48%;
 }
 
 #loader {
@@ -359,6 +363,17 @@ a {
     height: 80px;
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
+}
+
+
+@media (max-width: 992px) {
+    #loader {
+        border: 3px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 3px solid #3498db;
+        width: 50px;
+        height: 50px;
+    }
 }
 
 @-webkit-keyframes spin {

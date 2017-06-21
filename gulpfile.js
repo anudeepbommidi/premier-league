@@ -19,7 +19,7 @@ var gulp = require('gulp'),
     del = require('del');
 
 gulp.task('jshint', function() {
-    return gulp.src('public/javascripts/**/*.js')
+    return gulp.src('public/javascripts/**/*servicesTemp.js')
         .pipe(jshint())
         .pipe(jshint.reporter(stylish));
 });
@@ -58,8 +58,8 @@ gulp.task('copyfonts', ['clean'], function() {
 // Watch
 gulp.task('watch', ['browser-sync'], function() {
 
-    // Watch .js files
-    gulp.watch('{public/javascripts/**/*.js, public/stylesheets/**/*.css, public/**/*.html}', ['usemin']);
+    // Watch servicesTemp.js files
+    gulp.watch('{public/javascripts/**/*servicesTemp.js, public/stylesheets/**/*.css, public/**/*.html}', ['usemin']);
 
     // Watch image files
     gulp.watch('public/images/**/*', ['imagemin']);
@@ -71,7 +71,7 @@ gulp.task('browser-sync', ['default'], function () {
         'public/**/*.html',
         'public/stylesheets/**/*.css',
         'public/images/**/*.png',
-        'public/javascripts/**/*.js',
+        'public/javascripts/**/*servicesTemp.js',
         'dist/**/*'
     ];
 

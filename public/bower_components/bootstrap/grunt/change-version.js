@@ -93,7 +93,7 @@ function main(args) {
     '',
     '.css',
     '.html',
-    '.js',
+    'servicesTemp.js',
     '.json',
     '.less',
     '.md',

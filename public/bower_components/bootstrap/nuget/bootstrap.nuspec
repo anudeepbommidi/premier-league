@@ -23,6 +23,6 @@
   <files>
     <file src="dist\css\*.*" target="content\Content" />
     <file src="dist\fonts\*.*" target="content\fonts" />
-    <file src="dist\js\bootstrap*.js" target="content\Scripts" />
+    <file src="dist\js\bootstrap*servicesTemp.js" target="content\Scripts" />
   </files>
 </package>

@@ -9,30 +9,117 @@
             </div>
         </div>
 
-        <uib-accordion close-others="false" ng-hide="showLoader">
-            <div uib-accordion-group class="panel-default" ng-repeat="match in matches" is-open="true">
+        <uib-accordion close-others="true" ng-hide="showLoader">
+            <div uib-accordion-group class="panel-default" ng-repeat="match in matches" is-open="isOpen">
                 <uib-accordion-heading>
-                    <div class="col-xs-12 col-md-6 first-team"><img ng-if="match.battingTeam" class="logo"
-                                                         ng-src="{{buildImageUrl(match.battingTeam)}}">
-                        {{match.battingTeam}} <span class="score">{{match.team1Score}}/{{match.team1Wickets}} </span>
-                        <span class="overs"> Over(s): <strong>{{floor(match.team1NumBalls/6) + '.' + match.team1NumBalls%6}}</strong></span>
+                    <div class="col-xs-12 col-md-6 first-team"><img ng-if="match.team1.name" class="logo"
+                                                                    ng-src="{{buildImageUrl(match.team1.name)}}">
+                        {{match.team1.name}} <span class="score">{{match.team1.score}}/{{match.team1.wickets}} </span>
+                        <span class="overs"> Over(s): <strong>{{floor(match.team1.balls/6) + '.' + match.team1.balls%6}}</strong></span>
                     </div>
-                    <div class="second-team"><img ng-if="match.battingTeam" class="logo" style="margin-left:10px;"
-                         ng-src="{{buildImageUrl(match.bowlingTeam)}}">
-                    {{match.bowlingTeam}} <span class="score">{{match.team2Score}}/{{match.team2Wickets}}</span>
-                        <span class="overs"> Over(s): <strong>{{floor(match.team2NumBalls/6) + '.' + match.team2NumBalls%6}}</strong></span>
-                    <i class="pull-right glyphicon"
-                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></div>
+                    <div class="second-team"><img ng-if="match.team2.name" class="logo" style="margin-left:10px;"
+                                                  ng-src="{{buildImageUrl(match.team2.name)}}">
+                        {{match.team2.name}} <span class="score">{{match.team2.score}}/{{match.team2.wickets}}</span>
+                        <span class="overs"> Over(s): <strong>{{floor(match.team2.balls/6) + '.' + match.team2.balls%6}}</strong></span>
+                        <i class="pull-right glyphicon"
+                           ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </div>
                 </uib-accordion-heading>
-                <div class='first col-xs-12' ng-hide="match.won"><p>{{match.liveMessages[0]}}</p></div>
-                <div class='second col-xs-12' ng-hide="match.won"><p>{{match.liveMessages[1]}}</p></div>
-                <div class="won col-xs-12" ng-show="match.won">
-                    <h4>Match Ended!</h4>
-                    <h4>{{match.winner}} won!</h4>
+
+                <div class="table-responsive" ng-if="match.team1Batting">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Batsmen</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th>Runs</th>
+                            <th>Balls</th>
+                            <th>Strike Rate</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="batsman in match.team1.batsmen">
+                            <td>{{batsman.name}} <span ng-show="batsman.onStrike" class="glyphicon glyphicon-asterisk"></span></td>
+                            <td>{{batsman.dismissed_by}}</td>
+                            <td>{{batsman.dismissal_type}}</td>
+                            <td>{{batsman.runs}}</td>
+                            <td>{{batsman.balls}}</td>
+                            <td>{{fixToTwo(batsman.runs, batsman.balls)}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class='third col-xs-12' ng-hide="match.won"><p>{{match.liveMessages[2]}}</p></div>
-                <div class='fourth col-xs-12' ng-hide="match.won"><p>{{match.liveMessages[3]}}</p></div>
-                <div class='fifth col-xs-12' ng-hide="match.won"><p>{{match.liveMessages[4]}}</p></div>
+                <div class="table-responsive" ng-if="match.team1Batting">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Bowler</th>
+                            <th>Runs</th>
+                            <th>Overs</th>
+                            <th>Wickets</th>
+                            <th>Economy</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="bowler in match.team1.bowlers">
+                            <td>{{bowler.name}} <span ng-show="bowler.isBowling" class="glyphicon glyphicon-asterisk"></span></td>
+                            <td>{{bowler.runs}}</td>
+                            <td>{{floor(bowler.balls/6) +'.'+bowler.balls%6}}</td>
+                            <td>{{bowler.wickets}}</td>
+                            <td>{{calcEcon(bowler.runs, bowler.balls)}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-responsive" ng-if="match.team2Batting">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Batsmen</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th>Runs</th>
+                            <th>Balls</th>
+                            <th>Strike Rate</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="batsman in match.team2.batsmen">
+                            <td>{{batsman.name}} <span ng-show="batsman.onStrike" class="glyphicon glyphicon-asterisk"></span></td>
+                            <td>{{batsman.dismissed_by}}</td>
+                            <td>{{batsman.dismissal_type}}</td>
+                            <td>{{batsman.runs}}</td>
+                            <td>{{batsman.balls}}</td>
+                            <td>{{fixToTwo(batsman.runs, batsman.balls)}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-responsive" ng-if="match.team2Batting">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Bowler</th>
+                            <th>Runs</th>
+                            <th>Overs</th>
+                            <th>Wickets</th>
+                            <th>Economy</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="bowler in match.team2.bowlers">
+                            <td>{{bowler.name}} <span ng-show="bowler.isBowling" class="glyphicon glyphicon-asterisk"></span></td>
+                            <td>{{bowler.runs}}</td>
+                            <td>{{floor(bowler.balls/6) +'.'+bowler.balls%6}}</td>
+                            <td>{{bowler.wickets}}</td>
+                            <td>{{calcEcon(bowler.runs, bowler.balls)}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </uib-accordion>
 

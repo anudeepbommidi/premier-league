@@ -15,71 +15,70 @@ angular.module('premierLeague')
         };
 
     }])
-    .controller('HomeController', ['$scope', '$log', 'simulationFactory', '$interval', function ($scope, $log, simulationFactory, $interval, $document) {
 
-        var ind = simulationFactory.getIndexPos();
-        var inds = [ind, ind + 1, ind + 2, ind + 3];
 
-        $scope.matches = [{}, {}, {}, {}];
+    .controller('HomeController', ['$scope', '$log', 'simulationFactory', '$interval', function ($scope, $log, simulationFactory, $interval) {
 
         $scope.showLoader = true;
-
-
         $scope.oneAtATime = true;
 
         $scope.buildImageUrl = function(name) {
             return '/images/'+String(name).replace(/\s+/g, '-') + '.png';
         };
 
+        $scope.isOpen = true;
+
         $scope.floor = function(value) {
             return simulationFactory.floor(value);
         };
 
+        var ind = simulationFactory.getIndexPos();
+        var indices = [ind, ind + 1, ind + 2, ind + 3];
 
-        setupMatches($scope.matches[0], 2000, 0);
-        setupMatches($scope.matches[1], 5000, 1);
-        setupMatches($scope.matches[2], 3000, 2);
-        setupMatches($scope.matches[3], 6000, 3);
+        var Match = simulationFactory.Match;
+        var Team = simulationFactory.Team;
 
 
-        function setupMatches(match, timer, ind) {
-            match.index = ind;
-            match.data = [];
-            match.numRows = 0;
-            match.startPos = 0;
-            match.team1Score = 0;
-            match.team2Score = 0;
-            match.team1Wickets = 0;
-            match.team2Wickets = 0;
-            match.liveMessages = ['', '', '', '', ''];
-            match.lmindex = 0; //live message index
-            match.won = false;
-            match.winner = '';
-            match.timer = timer;
-            match.team1Overs = 0;
-            match.team2Overs = 0;
+        $scope.matches = [];
+        $scope.matches.push(new Match(0, new Team(), new Team(), 4000));
+        $scope.matches.push(new Match(1, new Team(), new Team(), 7500));
+        $scope.matches.push(new Match(2, new Team(), new Team(), 6500));
+        $scope.matches.push(new Match(3, new Team(), new Team(), 4500));
 
-        }
+        $scope.fixToTwo = function(num, denom) {
+            return denom > 0 ? (num/denom * 100).toFixed(2) : 0;
+        };
 
+        $scope.calcEcon = function(runs, balls) {
+            return (runs/(balls/6)).toFixed(2);
+        };
 
         simulationFactory.getDeliveries().query({first: ind})
             .$promise.then(
             function (response) {
-                $scope.liveMatches = response;
 
                 for (var i = 0; i < response.length; i++) {
 
-                    if (parseInt(response[i].match_id) === inds[0]) {
+                    if (parseInt(response[i].match_id) === indices[0]) {
                         $scope.matches[0].data.push(response[i]);
                     }
-                    else if (parseInt(response[i].match_id) === inds[1]) {
+                    else if (parseInt(response[i].match_id) === indices[1]) {
                         $scope.matches[1].data.push(response[i]);
                     }
-                    else if (parseInt(response[i].match_id) === inds[2]) {
+                    else if (parseInt(response[i].match_id) === indices[2]) {
                         $scope.matches[2].data.push(response[i]);
                     }
-                    else if (parseInt(response[i].match_id) === inds[3]) {
+                    else if (parseInt(response[i].match_id) === indices[3]) {
                         $scope.matches[3].data.push(response[i]);
+                    }
+                }
+
+                var matchStats = response[response.length-1];
+                for(var l = 0; l< 4; l++) {
+                    var statsId = parseInt(matchStats[l].id);
+                    var indicesId = indices.indexOf(statsId);
+                    if(indicesId > -1) {
+                        $scope.matches[indicesId].matchStats = matchStats[l];
                     }
                 }
 
@@ -97,66 +96,25 @@ angular.module('premierLeague')
             },
             function (response) {
                 $scope.message = response;
+                $log.debug(response);
             });
 
         function initializeSimulation(match) {
 
             var d = new Date();
             match.numRows = match.data.length;
-            match.startPos = Math.floor((match.numRows) / (match.index + 1)) + d.getMinutes();
+            match.startPos = Math.floor((match.numRows) / (match.index + 2)) + d.getMinutes();
             var sPos = match.startPos;
             if (sPos >= match.numRows) {
                 sPos = match.numRows - 10;
             }
-            $log.debug(sPos);
-            match.team1Score = getCurrentScore(match.data, 1, sPos);
-            match.team2Score = getCurrentScore(match.data, 2, sPos);
-            match.team1Wickets = getCurrentWickets(match.data, 1, sPos);
-            match.team2Wickets = getCurrentWickets(match.data, 2, sPos);
-            match.team1NumBalls = getOvers(match.data, 1, sPos);
-            match.team2NumBalls = getOvers(match.data, 2, sPos);
-            match.battingTeam = match.data[sPos].batting_team;
-            match.bowlingTeam = match.data[sPos].bowling_team;
-            for(var l = 0; l<5; l++) {
-                simulationFactory.buildLiveMatch(match);
-            }
-
+            match.team1.name = match.matchStats.team1;
+            match.team2.name = match.matchStats.team2;
+            $log.debug(match.startPos);
+            simulationFactory.buildMatchDetails(match, sPos, 0);
+            $log.debug(match.team1.batsmen);
         }
 
-        function getCurrentScore(data, inning, pos) {
-            var score = 0;
-            for (var i = 0; i < pos; i++) {
-                if (parseInt(data[i].inning) === inning) {
-                    score += data[i].total_runs;
-                }
-
-            }
-            return score;
-        }
-
-        function getCurrentWickets(data, inning, pos) {
-            var wickets = 0;
-            for (var i = 0; i < pos; i++) {
-                if (parseInt(data[i].inning) === inning) {
-                    if (data[i].player_dismissed !== "") {
-                        wickets++;
-                    }
-                }
-            }
-            return wickets;
-        }
-
-        function getOvers(data, inning, pos) {
-            var balls = 0;
-            for(var i=0; i<pos; i++) {
-                if(parseInt(data[i].inning) === inning) {
-                    if(simulationFactory.isValidBall(data[i])) {
-                        balls+=1;
-                    }
-                }
-            }
-            return balls;
-        }
 
 
         function startSimulation(timer, match) {
@@ -167,6 +125,7 @@ angular.module('premierLeague')
 
 
     }])
+
     .controller('PastMatchesController', ['$scope', 'matchesFactory', '$log', '$stateParams', '$state', 'paginationService',
         function ($scope, matchesFactory, $log, $stateParams, $state, paginationService) {
 
@@ -180,8 +139,8 @@ angular.module('premierLeague')
             $scope.team2Selected = '';
             $scope.seasonSelected = '';
 
-            $scope.team2 = [];
             $scope.matchesList = [];
+            $scope.currentMatches = [];
 
             $scope.seasons = [2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];
 
@@ -229,6 +188,7 @@ angular.module('premierLeague')
                         }
                         $scope.showLoader = false;
                         $scope.matchesList = response;
+                        $log.debug("matchesList: ", $scope.matchesList);
                         $scope.changed = false;
                         $scope.initPager();
 

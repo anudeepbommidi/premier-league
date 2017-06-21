@@ -16,7 +16,7 @@ Below are some of the most common ways to include jQuery.
 #### Script tag
 
 ```html
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.minservicesTemp.js"></script>
 ```
 
 #### Babel
@@ -37,7 +37,7 @@ var $ = require("jquery");
 
 #### AMD (Asynchronous Module Definition)
 
-AMD is a module format built for the browser. For more information, we recommend [require.js' documentation](http://requirejs.org/docs/whyamd.html).
+AMD is a module format built for the browser. For more information, we recommend [requireservicesTemp.js' documentation](http://requirejs.org/docs/whyamd.html).
 
 ```js
 define(["jquery"], function($) {

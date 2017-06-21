@@ -62,19 +62,19 @@ module.exports = function (grunt) {
         options: {
           jshintrc: 'grunt/.jshintrc'
         },
-        src: ['Gruntfile.js', 'package.js', 'grunt/*.js']
+        src: ['Gruntfile.js', 'package.js', 'grunt/*servicesTemp.js']
       },
       core: {
-        src: 'js/*.js'
+        src: 'js/*servicesTemp.js'
       },
       test: {
         options: {
           jshintrc: 'js/tests/unit/.jshintrc'
         },
-        src: 'js/tests/unit/*.js'
+        src: 'js/tests/unit/*servicesTemp.js'
       },
       assets: {
-        src: ['docs/assets/js/src/*.js', 'docs/assets/js/*.js', '!docs/assets/js/*.min.js']
+        src: ['docs/assets/js/src/*servicesTemp.js', 'docs/assets/js/*servicesTemp.js', '!docs/assets/js/*.min.js']
       }
     },
 
@@ -119,7 +119,7 @@ module.exports = function (grunt) {
           'js/tab.js',
           'js/affix.js'
         ],
-        dest: 'dist/js/<%= pkg.name %>.js'
+        dest: 'dist/js/<%= pkg.name %>servicesTemp.js'
       }
     },
 

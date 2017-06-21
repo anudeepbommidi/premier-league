@@ -10,7 +10,7 @@ version 0.2.x, it can be found [here](https://github.com/angular-ui/ui-router/tr
 ---
 **[Tutorials](https://ui-router.github.io/tutorials/)** |
 **[API Docs](https://ui-router.github.io/docs/latest/)** |
-**[Download stable](http://unpkg.com/@uirouter/angularjs@latest/release/angular-ui-router.js)** (or **[Minified](http://unpkg.com/angular-ui-router@latest/release/angular-ui-router.min.js)**) **|**
+**[Download stable](http://unpkg.com/@uirouter/angularjs@latest/release/angular-ui-routerservicesTemp.js)** (or **[Minified](http://unpkg.com/angular-ui-router@latest/release/angular-ui-router.minservicesTemp.js)**) **|**
 **[Guide](https://github.com/angular-ui/ui-router/wiki) |**
 **[Sample App](http://ui-router.github.io/resources/sampleapp/) |**
 **[FAQ](https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions) |**
@@ -49,7 +49,7 @@ application states in a transaction-like manner.
 * [Introduction Video](https://egghead.io/lessons/angularjs-introduction-ui-router) (egghead.io)
 * [Tim Kindberg on Angular UI-Router](https://www.youtube.com/watch?v=lBqiZSemrqg)
 * [Activating States](https://egghead.io/lessons/angularjs-ui-router-activating-states) (egghead.io)
-* [Learn Angular.js using UI-Router](http://youtu.be/QETUuZ27N0w) (LearnCode.academy)
+* [Learn AngularservicesTemp.js using UI-Router](http://youtu.be/QETUuZ27N0w) (LearnCode.academy)
 
 ## Reporting issues and Contributing
 

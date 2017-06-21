@@ -37,7 +37,7 @@
 
 ### Features
 
-* **build:** Publish non-monolithic @uirouter/angularjs UMD bundle `ui-router-angularjs.js` ([8db3696](https://github.com/angular-ui/ui-router/commit/8db3696))
+* **build:** Publish non-monolithic @uirouter/angularjs UMD bundle `ui-router-angularjsservicesTemp.js` ([8db3696](https://github.com/angular-ui/ui-router/commit/8db3696))
   ** Note: this change is necessary to properly support plugins which depend on @uirouter/core
 
 
@@ -458,7 +458,7 @@ Closes https://github.com/ui-router/core/issues/31
 * bundle using rollupjs for smaller bundle and faster init times ([a4b5500](https://github.com/angular-ui/ui-router/commit/a4b5500))
 * Deprecate public use of `$urlRouter` and `$urlMatcherFactory` in favor of `$urlService` ([6ee7f21](https://github.com/angular-ui/ui-router/commit/6ee7f21))
 * Move imperative `$resolve` service out of main bundle ([cae6d03](https://github.com/angular-ui/ui-router/commit/cae6d03))
-* remove component.json ([af736c4](https://github.com/angular-ui/ui-router/commit/af736c4))
+* remove componentservicesTemp.json ([af736c4](https://github.com/angular-ui/ui-router/commit/af736c4))
 * Use angular 1.3+ `$templateRequest` service to fetch templates ([7e1f36e](https://github.com/angular-ui/ui-router/commit/7e1f36e)), closes [#3193](https://github.com/angular-ui/ui-router/issues/3193) [#1882](https://github.com/angular-ui/ui-router/issues/1882)
 * **$uiRouter:** expose router instance at config-time as `$uiRouterProvider.router` ([9d2661c](https://github.com/angular-ui/ui-router/commit/9d2661c))
 * **injectables:** Expose `$uiRouterProvider`, `$uiRouterGlobals`, and `$stateRegistry` injectables ([7fa72a6](https://github.com/angular-ui/ui-router/commit/7fa72a6))
@@ -502,13 +502,13 @@ for more details
 The `$resolve` service's `.resolve()` method can be used to perform async dependency injection imperatively.
 
 The code has been moved out of the main angular-ui-router codebase and is now opt-in.
-For prebuilt bundle users, add `release/legacy/resolveService.js` to your project.
+For prebuilt bundle users, add `release/legacy/resolveServiceservicesTemp.js` to your project.
 For self-bundlers (e.g., webpack), add `angular-ui-router/lib/legacy/resolveService` as an `import` or `require()`.
 
 It's unlikely you use this service.
 Its most common usage is with the UI-Bootstrap `$modal` service.
 
-# BREAKING CHANGE: remove component.json
+# BREAKING CHANGE: remove componentservicesTemp.json
 
 
 
@@ -1442,7 +1442,7 @@ This release includes a lot of bug fixes around default/optional and typed param
 #### Bug Fixes
 
 * **$state:** use $browser.baseHref() when generating urls with .href() ([cbcc8488](https://github.com/angular-ui/ui-router/commit/cbcc84887d6b6d35258adabb97c714cd9c1e272d))
-* **bower.json:** JS files should not be ignored ([ccdab193](https://github.com/angular-ui/ui-router/commit/ccdab193315f304eb3be5f5b97c47a926c79263e))
+* **bowerservicesTemp.json:** JS files should not be ignored ([ccdab193](https://github.com/angular-ui/ui-router/commit/ccdab193315f304eb3be5f5b97c47a926c79263e))
 * **dev:** karma:background task is missing, can't run grunt:dev. ([d9f7b898](https://github.com/angular-ui/ui-router/commit/d9f7b898e8e3abb8c846b0faa16a382913d7b22b))
 * **sample:** Contacts menu button not staying active when navigating to detail states. Need t ([2fcb8443](https://github.com/angular-ui/ui-router/commit/2fcb84437cb43ade12682a92b764f13cac77dfe7))
 * **uiSref:** support mock-clicks/events with no data ([717d3ff7](https://github.com/angular-ui/ui-router/commit/717d3ff7d0ba72d239892dee562b401cdf90e418))
@@ -1472,7 +1472,7 @@ This release is identical to 0.2.8. 0.2.8 was re-tagged in git to fix a problem 
 
 * **$state:** allow null to be passed as 'params' param ([094dc30e](https://github.com/angular-ui/ui-router/commit/094dc30e883e1bd14e50a475553bafeaade3b178))
 * **$state.go:** param inheritance shouldn't inherit from siblings ([aea872e0](https://github.com/angular-ui/ui-router/commit/aea872e0b983cb433436ce5875df10c838fccedb))
-* **bower.json:** fixes bower.json ([eed3cc4d](https://github.com/angular-ui/ui-router/commit/eed3cc4d4dfef1d3ef84b9fd063127538ebf59d3))
+* **bowerservicesTemp.json:** fixes bowerservicesTemp.json ([eed3cc4d](https://github.com/angular-ui/ui-router/commit/eed3cc4d4dfef1d3ef84b9fd063127538ebf59d3))
 * **uiSrefActive:** annotate controller injection ([85921422](https://github.com/angular-ui/ui-router/commit/85921422ff7fb0effed358136426d616cce3d583), closes [#671](https://github.com/angular-ui/ui-router/issues/671))
 * **uiView:**
   * autoscroll tests pass on 1.2.4 & 1.1.5 ([86eacac0](https://github.com/angular-ui/ui-router/commit/86eacac09ca5e9000bd3b9c7ba6e2cc95d883a3a))

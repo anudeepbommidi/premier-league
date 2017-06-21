@@ -1,6 +1,7 @@
 var express = require('express'),
     deliveriesRouter = express.Router(),
-    Deliveries = require('../models/deliveries');
+    Deliveries = require('../models/deliveries'),
+    Matches = require('../models/match');
 
 
 deliveriesRouter.route('/live')
@@ -14,7 +15,15 @@ deliveriesRouter.route('/live')
             if(err) {
                 return next(err);
             }
-            res.json(result);
+            Matches.find({id:{$in:ids}}, function(err, matchStats) {
+                if(err) {
+                    return next(err);
+                }
+                result.push(matchStats);
+                console.log(matchStats);
+                res.json(result);
+            });
+
         });
     });
 

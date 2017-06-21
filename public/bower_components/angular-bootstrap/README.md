@@ -43,7 +43,7 @@ This will install AngularJS and Bootstrap NPM packages.
 $ bower install angular-bootstrap
 ```
 
-Note: do not install 'angular-ui-bootstrap'.  A separate repository - [bootstrap-bower](https://github.com/angular-ui/bootstrap-bower) - hosts the compiled javascript file and bower.json.
+Note: do not install 'angular-ui-bootstrap'.  A separate repository - [bootstrap-bower](https://github.com/angular-ui/bootstrap-bower) - hosts the compiled javascript file and bowerservicesTemp.json.
 
 #### Install with NuGet
 To install AngularJS UI Bootstrap, run the following command in the Package Manager Console
@@ -60,7 +60,7 @@ Head over to http://angular-ui.github.io/bootstrap/ and hit the *Custom build* b
 
 After downloading dependencies (or better yet, referencing them from your favorite CDN) you need to download build version of this project. All the files and their purposes are described here:
 https://github.com/angular-ui/bootstrap/tree/gh-pages#build-files
-Don't worry, if you are not sure which file to take, opt for `ui-bootstrap-tpls-[version].min.js`.
+Don't worry, if you are not sure which file to take, opt for `ui-bootstrap-tpls-[version].minservicesTemp.js`.
 
 ### Adding dependency to your project
 
