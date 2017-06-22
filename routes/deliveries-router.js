@@ -20,20 +20,21 @@ deliveriesRouter.route('/live')
                     return next(err);
                 }
                 result.push(matchStats);
-                console.log(matchStats);
+                // console.log(matchStats);
                 res.json(result);
             });
 
         });
     });
 
-deliveriesRouter.route('/match/:id')
+deliveriesRouter.route('/detail/:id')
 .get( function(req, res, next) {
     var id = parseInt(req.params.id, 10);
     Deliveries.find({match_id: id}, function (err, result) {
         if (err) {
             return next(err);
         }
+        console.log(result);
         res.json(result);
     });
 });

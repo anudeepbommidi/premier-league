@@ -6,25 +6,32 @@ var express = require('express'),
 matchRouter.route('/')
     .get(function (req, res, next) {
 
-        var multipleQuery = Matches.Query;
-        if (req.query.season) {
-            multipleQuery = Matches.find({season: req.query.season});
+        var query;
+        if (req.query.season && !req.query.team1 && !req.query.team2) {
+            query = Matches.find({season: req.query.season});
         }
-        //covers if one/both of them is undefined
-        if (req.query.team1 === undefined || req.query.team2 === undefined) {
-            if (req.query.team1 !== undefined) {
-                multipleQuery.find({$or: [{team1: req.query.team1}, {team2: req.query.team1}]});
-            }
-            else if(req.query.team2 !== undefined) {
-                multipleQuery.find({$or: [{team1: req.query.team2}, {team2: req.query.team2}]});
-            }
+        else if (req.query.season && req.query.team1 && !req.query.team2) {
+            query =  Matches.find({$and:[{season: req.query.season}, {$or: [{team1: req.query.team1}, {team2: req.query.team1}]}]});
         }
-        //neither of them is undefined
+        else if (req.query.season && !req.query.team1 && req.query.team2) {
+            query = Matches.find({$and:[{season: req.query.season}, {$or: [{team1: req.query.team2}, {team2: req.query.team2}]}]});
+        }
+        else if (!req.query.season && req.query.team1 && !req.query.team2) {
+            query = Matches.find({$or: [{team1: req.query.team1}, {team2: req.query.team1}]});
+        }
+        else if (!req.query.season && !req.query.team1 && req.query.team2) {
+            query = Matches.find({$or: [{team1: req.query.team2}, {team2: req.query.team2}]});
+        }
+        else if (!req.query.season && req.query.team1 && req.query.team2) {
+            query = Matches.find({$or: [{$and:[{team1: req.query.team1}, {team2: req.query.team2}]},
+                                                    {$and:[{team1: req.query.team2}, {team2: req.query.team1}]}]});
+        }
         else {
-            multipleQuery.find({$or:[{$and:[{team1: req.query.team1}, {team2: req.query.team2}]},{$and:[{team1: req.query.team2}, {team2: req.query.team1}]}]});
+            query = Matches.find({$or:[{$and:[{season:req.query.season}, {team1: req.query.team1}, {team2: req.query.team2}]},
+                {$and:[{season:req.query.season}, {team1: req.query.team2}, {team2: req.query.team1}]}]});
         }
 
-        multipleQuery.exec(function (err, result) {
+        query.exec(function (err, result) {
             if (err) {
                 return next(err);
             }
@@ -32,13 +39,6 @@ matchRouter.route('/')
 
         });
 
-
-        // Matches.find(req.query, function(err, result) {
-        //     if(err) {
-        //         return next(err);
-        //     }
-        //     res.json(result);
-        // })
     });
 
 

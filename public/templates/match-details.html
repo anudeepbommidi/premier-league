@@ -1,9 +1,139 @@
 <div class="container">
-<div class="row">
-    <ul class="col-xs-12 col-md-6 list-group">
-        <li class="list-group-item" ng-repeat="delivery in deliveries">
-            <span class="badge">{{delivery.over}}.{{delivery.ball}}</span>
-        </li>
-    </ul>
-</div>
+    <div class="row">
+
+
+        <div class="container" ng-if="showLoader">
+            <div class="row" id="loader-wrapper">
+                <div class="col-xs-12" id="loader"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <h3 class="title-details col-xs-12 col-md-6" ng-hide="showLoader">
+                    <img ng-if="match.team1.name" class="logo-sm" ng-src="{{buildImageUrl(match.team1.name)}}">
+                    {{match.team1.name}} <span class="score">{{match.team1.score}}/{{match.team1.wickets}} </span>
+                    <span class="overs"> Over(s): <strong>{{floor(match.team1.balls/6) + '.' + match.team1.balls%6}}
+                    </strong></span>
+                </h3>
+                <h3 class="title-details col-xs-12 col-md-6" ng-hide="showLoader">
+                    <img ng-if="match.team2.name" class="logo-sm" ng-src="{{buildImageUrl(match.team2.name)}}">
+                    {{match.team2.name}} <span class="score">{{match.team2.score}}/{{match.team2.wickets}}</span>
+                    <span class="overs"> Over(s): <strong>{{floor(match.team2.balls/6) + '.' + match.team2.balls%6}}
+                    </strong></span>
+                </h3>
+            </div>
+        </div>
+
+
+        <div class="first-innings" ng-hide="showLoader">
+            <div class="table-responsive">
+                <table class="table">
+                    <caption>First Innings</caption>
+                    <thead>
+                    <tr>
+                        <th><img ng-if="match.team1.name" class="logo-xs"
+                                 ng-src="{{buildImageUrl(match.team1.name)}}"> Batsmen
+                        </th>
+                        <th>&nbsp;</th>
+                        <th>&nbsp;</th>
+                        <th>Runs</th>
+                        <th>Balls</th>
+                        <th>Strike Rate</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="batsman in match.team1.batsmen">
+                        <td>{{batsman.name}}</td>
+                        <td>{{batsman.dismissed_by}}</td>
+                        <td>{{batsman.dismissal_type}}</td>
+                        <td>{{batsman.runs}}</td>
+                        <td>{{batsman.balls}}</td>
+                        <td>{{fixToTwo(batsman.runs, batsman.balls)}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th><img ng-if="match.team2.name" class="logo-xs"
+                                 ng-src="{{buildImageUrl(match.team2.name)}}">
+                            Bowler
+                        </th>
+                        <th>Runs</th>
+                        <th>Overs</th>
+                        <th>Wickets</th>
+                        <th>Economy</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="bowler in match.team1.bowlers">
+                        <td>{{bowler.name}}</td>
+                        <td>{{bowler.runs}}</td>
+                        <td>{{floor(bowler.balls/6) +'.'+bowler.balls%6}}</td>
+                        <td>{{bowler.wickets}}</td>
+                        <td>{{calcEcon(bowler.runs, bowler.balls)}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="second-innings" ng-hide="showLoader">
+            <div class="table-responsive">
+                <table class="table">
+                    <caption>Second Innings</caption>
+                    <thead>
+                    <tr>
+                        <th><img ng-if="match.team2.name" class="logo-xs"
+                                 ng-src="{{buildImageUrl(match.team2.name)}}">
+                            Batsmen
+                        </th>
+                        <th>&nbsp;</th>
+                        <th>&nbsp;</th>
+                        <th>Runs</th>
+                        <th>Balls</th>
+                        <th>Strike Rate</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="batsman in match.team2.batsmen">
+                        <td>{{batsman.name}}</td>
+                        <td>{{batsman.dismissed_by}}</td>
+                        <td>{{batsman.dismissal_type}}</td>
+                        <td>{{batsman.runs}}</td>
+                        <td>{{batsman.balls}}</td>
+                        <td>{{fixToTwo(batsman.runs, batsman.balls)}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th><img ng-if="match.team1.name" class="logo-xs"
+                                 ng-src="{{buildImageUrl(match.team1.name)}}">
+                            Bowler
+                        </th>
+                        <th>Runs</th>
+                        <th>Overs</th>
+                        <th>Wickets</th>
+                        <th>Economy</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="bowler in match.team2.bowlers">
+                        <td>{{bowler.name}}</td>
+                        <td>{{bowler.runs}}</td>
+                        <td>{{floor(bowler.balls/6) +'.'+bowler.balls%6}}</td>
+                        <td>{{bowler.wickets}}</td>
+                        <td>{{calcEcon(bowler.runs, bowler.balls)}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
 </div>

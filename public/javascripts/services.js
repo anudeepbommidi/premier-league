@@ -10,7 +10,7 @@ angular.module('premierLeague')
 
 
         function getMatches() {
-            return $resource(baseURL + 'matches');
+            return $resource(baseURL + 'matches', null);
         }
 
         // function getSearchResults() {
@@ -20,6 +20,10 @@ angular.module('premierLeague')
         //returns all delivery information of a particular match
         function getDeliveries() {
             return $resource(baseURL + 'deliveries/match/:id', null, {'query': {method: 'GET', isArray: true}});
+        }
+
+        function getMatchDetails() {
+            return $resource(baseURL + 'deliveries/detail/:id', null, {'query': {method: 'GET', isArray: true}});
         }
 
         function getTeams() {
@@ -35,11 +39,16 @@ angular.module('premierLeague')
             return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
         }
 
+        function buildImageUrl (name) {
+            return '/images/'+String(name).replace(/\s+/g, '-') + '.png';
+        }
+
         return {
             getMatches: getMatches,
-            // getSearchResults: getSearchResults,
+            buildImageUrl: buildImageUrl,
             getTeams: getTeams,
             getDeliveries: getDeliveries,
+            getMatchDetails: getMatchDetails,
             parseDate: parseDate
         };
 

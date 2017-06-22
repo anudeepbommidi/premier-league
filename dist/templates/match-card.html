@@ -2,26 +2,34 @@
     <div class='row'>
         <div class='wrapper-list-home col-xs-12 col-sm-6 col-md-6 col-lg-4' ng-repeat="match in currentMatches">
             <div class='media'>
-                <div class='media-body'>
-                    <div class='row'>
-                        <div class='name col-xs-12' style="min-height: 70px;">
-                            <h4 class='media-heading'>
-                                {{match.team1}} <strong style="color:#1b2f9e;">vs</strong> {{match.team2}}</h4>
-                        </div>
-                        <div class='season col-xs-12'>
-                            <h5>{{match.season}}</h5>
-                        </div>
-                        <div class='city col-xs-6'>
-                            <p style="font-size:12px;"><span>city:</span> <i>{{match.city}}</i></p>
-                        </div>
-                        <div class='dob col-xs-6'>
-                            <p><span>Date:</span> <i>{{parseDate(match.date)}}</i></p>
-                        </div>
-                        <div class="winner col-xs-12"><span>Winner: </span>{{match.winner}}</div>
-                        <!--<div class='col-xs-12'><a ui-sref="app.matchDetails({mid:match.id,pos:0})">view more details</a></div>-->
+                <div class='name col-xs-12'>
+                    <a ui-sref="app.matchDetails({mid:match.id, pos:0, matchStats: match})">
+                    <h4><img ng-if="match.team1" class="logo-xs"
+                             ng-src="{{buildImageUrl(match.team1)}}"> {{match.team1}}</h4>
+                    <h5><strong style="color:#1b2f9e;">vs</strong></h5>
+                    <h4><img ng-if="match.team1" class="logo-xs"
+                             ng-src="{{buildImageUrl(match.team2)}}"> {{match.team2}}</h4></a>
+                </div>
+                <div class="media-body">
+                    <div class='city col-xs-6'>
+                        City: <i>{{match.city}}</i>
+                    </div>
+                    <div class='dob col-xs-6'>
+                        <i class="pull-right">Date: {{parseDate(match.date)}}</i>
+                    </div>
+                    <div class="winner col-xs-12">Winner: <i>{{match.winner}}</i></div>
+                    <div class='player-of-match col-xs-12'>
+                        Player of the Match: <i>{{match.player_of_match}}</i>
+                    </div>
+                    <div class='venue col-xs-12'>
+                        Venue: <i>{{match.venue}}</i>
+                    </div>
+                    <div class='viewmore col-xs-12'><a ui-sref="app.matchDetails({mid:match.id, pos:0, matchStats: match})">view full
+                        scorecard</a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </section>
