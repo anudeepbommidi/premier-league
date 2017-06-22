@@ -1,6 +1,5 @@
 
 var gulp = require('gulp'),
-    minifycss = require('gulp-minify-css'),
     cleanCSS = require('gulp-clean-css'),
     jshint = require('gulp-jshint'),
     stylish = require('jshint-stylish'),
@@ -19,7 +18,7 @@ var gulp = require('gulp'),
     del = require('del');
 
 gulp.task('jshint', function() {
-    return gulp.src('public/javascripts/**/*servicesTemp.js')
+    return gulp.src('public/javascripts/**/*.js')
         .pipe(jshint())
         .pipe(jshint.reporter(stylish));
 });
@@ -59,7 +58,7 @@ gulp.task('copyfonts', ['clean'], function() {
 gulp.task('watch', ['browser-sync'], function() {
 
     // Watch servicesTemp.js files
-    gulp.watch('{public/javascripts/**/*servicesTemp.js, public/stylesheets/**/*.css, public/**/*.html}', ['usemin']);
+    gulp.watch('{public/javascripts/**/*.js, public/stylesheets/**/*.css, public/**/*.html}', ['usemin']);
 
     // Watch image files
     gulp.watch('public/images/**/*', ['imagemin']);
@@ -71,7 +70,7 @@ gulp.task('browser-sync', ['default'], function () {
         'public/**/*.html',
         'public/stylesheets/**/*.css',
         'public/images/**/*.png',
-        'public/javascripts/**/*servicesTemp.js',
+        'public/javascripts/**/*.js',
         'dist/**/*'
     ];
 

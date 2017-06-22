@@ -5,7 +5,7 @@ angular.module('premierLeague', ['ngAnimate', 'ui.bootstrap','ui.router', 'ngRes
         function ($stateProvider, $urlRouterProvider, $locationProvider, $logProvider) {
 
             $locationProvider.hashPrefix('');
-            $logProvider.debugEnabled(true);
+            $logProvider.debugEnabled(false);
 
             $stateProvider
                 .state('app', {

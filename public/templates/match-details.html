@@ -8,19 +8,19 @@
             </div>
         </div>
         <div class="container">
-            <div class="row">
-                <h3 class="title-details col-xs-12 col-md-6" ng-hide="showLoader">
+            <div class="row title-head">
+                <div class="title-details col-md-12 col-lg-6" ng-hide="showLoader">
                     <img ng-if="match.team1.name" class="logo-sm" ng-src="{{buildImageUrl(match.team1.name)}}">
                     {{match.team1.name}} <span class="score">{{match.team1.score}}/{{match.team1.wickets}} </span>
                     <span class="overs"> Over(s): <strong>{{floor(match.team1.balls/6) + '.' + match.team1.balls%6}}
                     </strong></span>
-                </h3>
-                <h3 class="title-details col-xs-12 col-md-6" ng-hide="showLoader">
+                </div>
+                <div class="title-details col-md-12 col-lg-6" ng-hide="showLoader">
                     <img ng-if="match.team2.name" class="logo-sm" ng-src="{{buildImageUrl(match.team2.name)}}">
                     {{match.team2.name}} <span class="score">{{match.team2.score}}/{{match.team2.wickets}}</span>
                     <span class="overs"> Over(s): <strong>{{floor(match.team2.balls/6) + '.' + match.team2.balls%6}}
                     </strong></span>
-                </h3>
+                </div>
             </div>
         </div>
 

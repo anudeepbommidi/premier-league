@@ -275,8 +275,7 @@ angular.module('premierLeague')
                     .$promise.then(function (response) {
 
                     $scope.match.data = response;
-                    pos = pos === 0 ? response.length - 1 : pos;
-                    console.log("pos:" + pos);
+                    pos = pos === 0 || pos === null || pos === undefined ? response.length - 1 : pos;
                     simulationFactory.buildMatchDetails($scope.match, pos, 0, true);
 
                     $scope.match.team1.name = $scope.match.matchStats.team1;

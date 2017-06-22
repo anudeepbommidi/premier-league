@@ -348,6 +348,13 @@ a {
 .title-details {
     background: #fff;
     text-align: center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+.title-head {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .logo-sm {
     width: 45px;
@@ -359,12 +366,17 @@ a {
 }
 
 
-
 .table caption {
     text-align: center;
     font-size: 18px;
     font-weight: bold;
     color: black;
+}
+
+@media (max-width: 768px) {
+    .title-details {
+        font-size: 12px;
+    }
 }
 
 
