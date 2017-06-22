@@ -130,7 +130,8 @@ angular.module('premierLeague')
         }
 
         function buildLiveMatch(match) {
-            if (match.startPos < match.data.length) {
+            if (match.startPos < match.data.length-1) {
+
                 buildMatchDetails(match, ++match.startPos, match.startPos);
             }
             else {
@@ -164,7 +165,8 @@ angular.module('premierLeague')
                 if(!flag) {
                     whoIsBatting(match, pos);
                 }
-
+                match.msg[0] = match.msg[1];
+                match.msg[1] = "";
             }
         }
 
@@ -208,6 +210,7 @@ angular.module('premierLeague')
             this.matchStats = {};
             this.team1Batting = false;
             this.team2Batting = false;
+            this.msg = ["",""];
         }
 
 
@@ -242,11 +245,11 @@ angular.module('premierLeague')
             if (parseInt(match.data[pos].inning) === inning) {
                 var batsman = match.data[pos].batsman;
                 var bIndex = ifExists(team.batsmen, batsman);
-                findAndAddBatsman(bIndex, match.data[pos], team.batsmen);
+                findAndAddBatsman(bIndex, match.data[pos], team.batsmen, match);
             }
         }
 
-        function findAndAddBatsman(bi, doc, batsmen) {
+        function findAndAddBatsman(bi, doc, batsmen, match) {
             if (bi === -1) {
                 batsmen.push(new Batsman(doc.batsman));
                 bi = batsmen.length - 1;
@@ -260,7 +263,9 @@ angular.module('premierLeague')
             if (doc.player_dismissed === doc.batsman) {
                 batsmen[bi].dismissal_type = doc.dismissal_kind;
                 batsmen[bi].dismissed_by = 'c ' + doc.fielder + ' b ' + doc.bowler;
+                match.msg[1]  = batsmen[bi].name + ' is out! ' + match.msg[1];
             }
+            match.msg[1] = batsmen[bi].name + ' is on strike! ' + match.msg[1];
         }
 
         function setAllBattingFalse(group) {
@@ -281,6 +286,7 @@ angular.module('premierLeague')
             if (parseInt(match.data[pos].inning) === inning) {
                 var bowler = match.data[pos].bowler;
                 var bIndex = ifExists(team.bowlers, bowler);
+                match.msg[1] = bowler + ' is bowling! ' + match.msg[1];
                 findAndAddBowler(bIndex, match.data[pos], team.bowlers);
             }
         }
@@ -310,6 +316,7 @@ angular.module('premierLeague')
             var team = getTeam(match, inning);
             if (parseInt(match.data[pos].inning) === inning) {
                 team.score += match.data[pos].total_runs;
+                match.msg[1] += match.data[pos].total_runs + " run(s)!";
             }
         }
 

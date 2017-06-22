@@ -26,7 +26,18 @@
                     </div>
                 </uib-accordion-heading>
 
-                <div class="table-responsive" ng-if="match.team1Batting">
+                <p class="livemessage" ng-if="!match.finished">{{match.msg[0]}}</p>
+                <div class="finishMessage" ng-if="match.finished">
+                    <p>Match Ended!</p>
+                    <p>{{getWinMessage(match.matchStats)}}</p>
+                    <div class='viewmore col-xs-12'><a
+                            ui-sref="app.matchDetails({mid:match.matchStats.id, pos:0, matchStats: match.matchStats})">view
+                        full
+                        scorecard</a>
+                    </div>
+                </div>
+
+                <div class="table-responsive" ng-if="match.team1Batting && !match.finished">
                     <table class="table">
                         <thead>
                         <tr>
@@ -40,7 +51,8 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="batsman in match.team1.batsmen">
-                            <td>{{batsman.name}} <span ng-show="batsman.onStrike" class="glyphicon glyphicon-asterisk"></span></td>
+                            <td>{{batsman.name}} <span ng-show="batsman.onStrike"
+                                                       class="glyphicon glyphicon-asterisk"></span></td>
                             <td>{{batsman.dismissed_by}}</td>
                             <td>{{batsman.dismissal_type}}</td>
                             <td>{{batsman.runs}}</td>
@@ -50,7 +62,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="table-responsive" ng-if="match.team1Batting">
+                <div class="table-responsive" ng-if="match.team1Batting && !match.finished">
                     <table class="table">
                         <thead>
                         <tr>
@@ -63,22 +75,23 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="bowler in match.team1.bowlers">
-                            <td>{{bowler.name}} <span ng-show="bowler.isBowling" class="glyphicon glyphicon-asterisk"></span></td>
+                            <td>{{bowler.name}} <span ng-show="bowler.isBowling"
+                                                      class="glyphicon glyphicon-asterisk"></span></td>
                             <td>{{bowler.runs}}</td>
                             <td>{{floor(bowler.balls/6) +'.'+bowler.balls%6}}</td>
                             <td>{{bowler.wickets}}</td>
                             <td>{{calcEcon(bowler.runs, bowler.balls)}}</td>
                         </tr>
                         <tr>
-                            <div class='viewmore col-xs-12'><a ui-sref="app.matchDetails({mid:match.matchStats.id, pos:match.startPos, matchStats: match.matchStats})">view full
-                            scorecard</a>
+                            <div class='viewmore-home col-xs-12'>
+                                <button class="btn btn-primary" ng-click="goToScoreboard(match)">view full scorecard
+                                </button>
                             </div>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-
-                <div class="table-responsive" ng-if="match.team2Batting">
+                <div class="table-responsive" ng-if="match.team2Batting && !match.finished">
                     <table class="table">
                         <thead>
                         <tr>
@@ -92,7 +105,8 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="batsman in match.team2.batsmen">
-                            <td>{{batsman.name}} <span ng-show="batsman.onStrike" class="glyphicon glyphicon-asterisk"></span></td>
+                            <td>{{batsman.name}} <span ng-show="batsman.onStrike"
+                                                       class="glyphicon glyphicon-asterisk"></span></td>
                             <td>{{batsman.dismissed_by}}</td>
                             <td>{{batsman.dismissal_type}}</td>
                             <td>{{batsman.runs}}</td>
@@ -102,7 +116,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="table-responsive" ng-if="match.team2Batting">
+                <div class="table-responsive" ng-if="match.team2Batting && !match.finished">
                     <table class="table">
                         <thead>
                         <tr>
@@ -115,15 +129,17 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="bowler in match.team2.bowlers">
-                            <td>{{bowler.name}} <span ng-show="bowler.isBowling" class="glyphicon glyphicon-asterisk"></span></td>
+                            <td>{{bowler.name}} <span ng-show="bowler.isBowling"
+                                                      class="glyphicon glyphicon-asterisk"></span></td>
                             <td>{{bowler.runs}}</td>
                             <td>{{floor(bowler.balls/6) +'.'+bowler.balls%6}}</td>
                             <td>{{bowler.wickets}}</td>
                             <td>{{calcEcon(bowler.runs, bowler.balls)}}</td>
                         </tr>
                         <tr>
-                            <div class='viewmore col-xs-12'><a ui-sref="app.matchDetails({mid:match.matchStats.id, pos:match.startPos, matchStats: match.matchStats})">view full
-                                scorecard</a>
+                            <div class='viewmore-home col-xs-12'>
+                                <button class="btn btn-primary" ng-click="goToScoreboard(match)">view full scorecard
+                                </button>
                             </div>
                         </tr>
                         </tbody>

@@ -130,7 +130,7 @@ a {
 
 @media only screen and (max-width: 768px) {
 
-    .panel-title {
+    .panel-title, .livemessage, .finishMessage {
         font-size: 12px;
     }
     .overs {
@@ -139,8 +139,23 @@ a {
 
 }
 
+.livemessage, .finishMessage {
+    text-align: center;
+    font-weight: bold;
+}
 
+.livemessage {
+    color: blue;
+}
 
+.finishMessage {
+    color: #0b801a;
+}
+
+.viewmore-home {
+    font-weight: bold;
+    text-align: center;
+}
 
 
 

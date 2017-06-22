@@ -17,8 +17,8 @@ angular.module('premierLeague')
     }])
 
 
-    .controller('HomeController', ['$scope', '$log', 'simulationFactory', 'matchesFactory', '$interval',
-        function ($scope, $log, simulationFactory, matchesFactory, $interval) {
+    .controller('HomeController', ['$scope', '$log', 'simulationFactory', 'matchesFactory', '$interval', '$state',
+        function ($scope, $log, simulationFactory, matchesFactory, $interval, $state) {
 
             $scope.showLoader = true;
             $scope.oneAtATime = true;
@@ -53,6 +53,23 @@ angular.module('premierLeague')
             $scope.calcEcon = function (runs, balls) {
                 return (runs / (balls / 6)).toFixed(2);
             };
+
+            $scope.getWinMessage = function(matchStats) {
+                if(parseInt(matchStats.dl_applied) === 1) {
+                    return matchStats.winner + ' won by Duckworth-Lewis!';
+                }
+                else if(parseInt(matchStats.win_by_runs) === 0) {
+                    return matchStats.winner + ' won by ' + matchStats.win_by_wickets + ' wickets!';
+                }
+                else {
+                    return matchStats.winner + ' won by ' + matchStats.win_by_runs + ' runs!';
+                }
+            };
+
+            $scope.goToScoreboard = function(match) {
+                $state.go('app.matchDetails', {mid:match.matchStats.id, pos: match.startPos, matchStats: match.matchStats});
+            };
+
 
             simulationFactory.getDeliveries().query({first: ind})
                 .$promise.then(
