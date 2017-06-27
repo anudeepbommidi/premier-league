@@ -311,8 +311,8 @@ a {
     color: #737373;
 }
 
-.venue {
-    font-size: 12px;
+.media > .media-body > .venue > i {
+    font-size: 10px;
     font-weight: bold;
 }
 
